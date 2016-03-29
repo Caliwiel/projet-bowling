@@ -23,6 +23,13 @@ public class Joueur implements IJoueur {
      */
     private int score;
 
+    /**
+     * Le numéro de l'essai du joueur pour le tour en
+     * cours. A chaque d"but de tour, il est réinitialisé
+     * on 29/03/2016
+
+     */
+    private int numero_essai = 0;
 
     /**
      * on 29/03/2016
@@ -58,4 +65,26 @@ public class Joueur implements IJoueur {
      */
     public int getScore ()  { return score; }
 
+    /**
+     * Getter du numéro d'essai du joueur on 29/03/2016.
+     * @return
+     * numéro d'essai du joueur
+     */
+    public int getNumero_essai() {
+        return numero_essai;
+    }
+
+    /**
+     * Initialiser le nombre d'essai on 29/03/2016.
+     */
+    public void initialiserNombre_essai() {
+        this.numero_essai=0;
+    }
+
+    /**
+     * Incrémenter le nombre d'essai on 29/03/2016.
+     */
+    public void incrementerNombre_essai() {
+        this.numero_essai++;
+    }
 }

@@ -15,7 +15,7 @@ public class Jeu implements IJeu {
     /**
      * Nombre total d'essai par tours
      */
-    private static final int NOMBRE_ESSAI = 2;
+    private static final int NOMBRE_ESSAI_MAX = 2;
 
     /**
      * Nombre total de quilles
@@ -56,7 +56,7 @@ public class Jeu implements IJeu {
             j = 0;
             nbQuillesTombees = 0;
 
-            while (!strike && j < NOMBRE_ESSAI) {
+            while (!strike && j < NOMBRE_ESSAI_MAX) {
                 //nbQuillesTombees += tour.lancer ();
                 //Si il a fait tomber toutes les quilles, et que c'est son premier essai
                 if (nbQuillesTombees == NOMBRE_QUILLES && j == 0)
