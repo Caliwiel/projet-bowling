@@ -16,14 +16,6 @@ public class Joueur implements IJoueur {
      * Numéro du joueur
      */
     private int number;
-    private int score;
-
-    public Joueur (String nom, int num) {
-        this.name = nom;
-        this.number = num;
-        this.score = 0;
-    }
-
 
     //Je sais pas trop si ça va être utile
     /**
