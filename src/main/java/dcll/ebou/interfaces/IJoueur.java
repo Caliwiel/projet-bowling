@@ -21,4 +21,16 @@ public interface IJoueur {
      * @return
      */
     public int getScore ();
+
+    /**
+     *
+     * @return
+     */
+    public int getNumero_essai();
+
+    public void initialiserNombre_essai();
+
+    public void incrementerNombre_essai();
+
+
 }

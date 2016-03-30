@@ -1,6 +1,7 @@
 package dcll.ebou.impl;
 
 import dcll.ebou.interfaces.IJeu;
+import dcll.ebou.interfaces.ITour;
 
 /**
  * Created by anais on 29/03/16.
@@ -38,13 +39,13 @@ public class Jeu implements IJeu {
      * on 29/03/2016
      * Méthode de jeu de bowling
      */
-    public void lancer () {
+    public void jouer () {
         joueur1 = new Joueur ("Joueur1", 1);
         joueur2 = new Joueur ("Joueur2", 2);
 
         //Il faudra ici une list de tours par joueur quand la classe tour sera
         //La classe tour devrait contenir le score du joueur pour ce tour là, le num du joueur, si il a fait un spare, si il a fait un strike
-
+        /*
         boolean strike;
         int j;
         int nbQuillesTombees;
@@ -72,6 +73,22 @@ public class Jeu implements IJeu {
             System.out.println("Il a fait tomber " + nbQuillesTombees + " quilles, en " + j + " coups.");
 
             //Calcul des scores en parcourant la liste de tours
+        }
+        */
+
+        ITour[] toursJ1 = new Tour[10];
+        ITour[] toursJ2 = new Tour[10];
+
+        for (int n_frames = 0;n_frames<NOMBRE_FRAME;n_frames++) {
+            toursJ1[n_frames]= new Tour(joueur1,n_frames);
+            toursJ2[n_frames]= new Tour(joueur2,n_frames);
+        }
+
+        for (int n_frames = 0;n_frames<NOMBRE_FRAME;n_frames++) {
+            int nquilles = toursJ1[n_frames].jouerTour();
+            System.out.println("Le joueur 1 a fait tombé "+nquilles);
+            nquilles = toursJ2[n_frames].jouerTour();
+            System.out.println("Le joueur 2 a fait tombé "+nquilles);
         }
     }
 }

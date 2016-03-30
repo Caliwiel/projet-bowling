@@ -8,5 +8,5 @@ public interface IJeu {
     /**
      * Methode de lancement du jeu
      */
-    public void lancer ();
+    public void jouer ();
 }

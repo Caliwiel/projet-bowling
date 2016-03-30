@@ -5,8 +5,28 @@ package dcll.ebou.interfaces;
  */
 public interface ITour {
 
-    public void getNumeroTour();
-    public void getJoueurDuTour();
-    public void getNumeroEssai();
+    /**
+     * on 30/03/2016.
+     * @return
+     */
+    public int getNumeroTour();
+
+    /**
+     * on 30/03/2016.
+     * @return
+     */
+    public IJoueur getJoueurDuTour();
+
+    /**
+     * on 30/03/2016.
+     * @return
+     */
+    public int getNumeroEssai();
+
+    /**
+     * on 30/03/2016.
+     * @return
+     */
+    public int jouerTour();
 
 }
