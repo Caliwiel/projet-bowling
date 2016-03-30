@@ -28,5 +28,17 @@ public interface ITour {
      * @return
      */
     public int jouerTour();
+    /**
+     * Accesseur à spare
+     * @return
+     */
+    public boolean isSpare();
+
+
+    /**
+     * Accesseur à strike
+     * @return
+     */
+    public boolean isStrike();
 
 }

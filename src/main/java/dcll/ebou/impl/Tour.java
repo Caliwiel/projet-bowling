@@ -71,6 +71,24 @@ public class Tour implements ITour {
         return joueur.getNumero_essai();
     }
 
+
+    /**
+     * Accesseur à spare
+     * @return
+     */
+    public boolean isSpare() {
+        return spare;
+    }
+
+
+    /**
+     * Accesseur à strike
+     * @return
+     */
+    public boolean isStrike() {
+        return strike;
+    }
+
     /**
      * Jouer 1 tour donc 1 ou 2 essais on 30/03/2016
      * (faire une classe essai)
@@ -79,9 +97,40 @@ public class Tour implements ITour {
      */
     @Override
     public int jouerTour() {
-        nombre_quilles_tombees=jouerEssai();
-        if(nombre_quilles_tombees!=10){
-            nombre_quilles_tombees+=jouerEssai();
+        joueur.initialiserNombre_essai();
+        /*
+        nombre_quilles_tombees = jouerEssai();
+
+        if ( nombre_quilles_tombees == 10 )
+            strike = true;
+        else {
+
+            nombre_quilles_tombees += jouerEssai();
+        }
+        */
+
+        boolean finTour = false;
+        while (!strike && !spare && !finTour) {
+            nombre_quilles_tombees += jouerEssai();
+
+            //Si il réalise un strike
+            if (nombre_quilles_tombees == 10 && joueur.getNumero_essai() == 1) {
+                strike = true;
+            }
+            //Si il réalise un spare
+            else if (nombre_quilles_tombees == 10 && joueur.getNumero_essai() == 2){
+                spare = true;
+            }
+            else
+            {
+                nombre_quilles_tombees += jouerEssai();
+            }
+
+            //Si ce n'est pas le dernier tour, il n'a que deux essais possibles
+            if ( joueur.getNumero_essai() == 2 && numero_tour != 9)
+            {
+                finTour = true;
+            }
         }
         return nombre_quilles_tombees;
     }
@@ -92,9 +141,11 @@ public class Tour implements ITour {
      * nombre de quilles tombées
      */
     private int jouerEssai() {
+
         joueur.incrementerNombre_essai();
-        if (10 - nombre_quilles_tombees - numero_tour%6+1>=0)
-            return numero_tour%6+1;
+
+        if (10 - nombre_quilles_tombees - numero_tour%5 + 1 >= 0)
+            return numero_tour%5+1;
         else
             return 0;
     }

@@ -79,16 +79,23 @@ public class Jeu implements IJeu {
         ITour[] toursJ1 = new Tour[10];
         ITour[] toursJ2 = new Tour[10];
 
-        for (int n_frames = 0;n_frames<NOMBRE_FRAME;n_frames++) {
+        for (int n_frames = 0; n_frames < NOMBRE_FRAME; n_frames++) {
             toursJ1[n_frames]= new Tour(joueur1,n_frames);
             toursJ2[n_frames]= new Tour(joueur2,n_frames);
         }
 
-        for (int n_frames = 0;n_frames<NOMBRE_FRAME;n_frames++) {
-            int nquilles = toursJ1[n_frames].jouerTour();
-            System.out.println("Le joueur 1 a fait tombé "+nquilles);
-            nquilles = toursJ2[n_frames].jouerTour();
-            System.out.println("Le joueur 2 a fait tombé "+nquilles);
+        int nQuilles;
+        for (int n_frames = 0; n_frames < NOMBRE_FRAME; n_frames++) {
+            System.out.println("Tour : " + n_frames);
+
+            nQuilles = toursJ1[n_frames].jouerTour();
+            System.out.println("Le joueur 1 a fait tombé " + nQuilles + " en " + toursJ1[n_frames].getNumeroEssai() + " essais.");
+            if (toursJ1[n_frames].isStrike())
+                System.out.println("Le joueur 1 a réalisé un striiiiiiiike");
+            nQuilles = toursJ2[n_frames].jouerTour();
+            System.out.println("Le joueur 2 a fait tombé " + nQuilles + " en " + toursJ2[n_frames].getNumeroEssai() + " essais.");
+            if (toursJ2[n_frames].isStrike())
+                System.out.println("Le joueur 2 a réalisé un striiiiiiiike");
         }
     }
 }

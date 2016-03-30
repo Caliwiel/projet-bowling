@@ -29,7 +29,7 @@ public class Joueur implements IJoueur {
      * on 29/03/2016
 
      */
-    private int numero_essai = 0;
+    private int numero_essai;
 
     /**
      * on 29/03/2016
@@ -41,6 +41,7 @@ public class Joueur implements IJoueur {
         this.name = nom;
         this.number = num;
         this.score = 0;
+        this.numero_essai = 0;
     }
 
     /**
@@ -78,7 +79,7 @@ public class Joueur implements IJoueur {
      * Initialiser le nombre d'essai on 29/03/2016.
      */
     public void initialiserNombre_essai() {
-        this.numero_essai=0;
+        this.numero_essai = 0;
     }
 
     /**
