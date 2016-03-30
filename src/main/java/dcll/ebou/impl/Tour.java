@@ -1,5 +1,6 @@
 package dcll.ebou.impl;
 
+import dcll.ebou.interfaces.IEssai;
 import dcll.ebou.interfaces.IJoueur;
 import dcll.ebou.interfaces.ITour;
 
@@ -25,6 +26,18 @@ public class Tour implements ITour {
      * pendant ce tour on 29/03/2016.
      */
     private boolean strike;
+
+    /**
+     * Le joueur a réalisé un spare
+     * pendant le tour supplémentaire on 29/03/2016.
+     */
+    private boolean spareTourSuplementaire;
+
+    /**
+     * Le joueur a réalisé un strike
+     * pendant le tour supplémentaire on 29/03/2016.
+     */
+    private boolean strikeTourSuplementaire;
 
     /**
      * Numéro du tour on 29/03/2016.
@@ -89,6 +102,10 @@ public class Tour implements ITour {
         return strike;
     }
 
+    public int getNombre_quilles_tombees() {
+        return nombre_quilles_tombees;
+    }
+
     /**
      * Jouer 1 tour donc 1 ou 2 essais on 30/03/2016
      * (faire une classe essai)
@@ -107,11 +124,13 @@ public class Tour implements ITour {
 
             nombre_quilles_tombees += jouerEssai();
         }
+
         */
 
         boolean finTour = false;
         while (!strike && !spare && !finTour) {
-            nombre_quilles_tombees += jouerEssai();
+            IEssai essai = new Essai();
+            nombre_quilles_tombees += essai.jouerEssai(this);
 
             //Si il réalise un strike
             if (nombre_quilles_tombees == 10 && joueur.getNumero_essai() == 1) {
@@ -123,31 +142,33 @@ public class Tour implements ITour {
             }
             else
             {
-                nombre_quilles_tombees += jouerEssai();
+                nombre_quilles_tombees += essai.jouerEssai(this);
             }
 
             //Si ce n'est pas le dernier tour, il n'a que deux essais possibles
             if ( joueur.getNumero_essai() == 2 && numero_tour != 9)
             {
+                jouerDernierTour();
                 finTour = true;
             }
         }
         return nombre_quilles_tombees;
     }
 
-    /**
-     * Jouer 1 essai on 30/03/2016.
-     * @return
-     * nombre de quilles tombées
-     */
-    private int jouerEssai() {
-
-        joueur.incrementerNombre_essai();
-
-        if (10 - nombre_quilles_tombees - numero_tour%5 + 1 >= 0)
-            return numero_tour%5+1;
-        else
-            return 0;
+    private int jouerDernierTour() {
+        int nombre_quilles_sup = 0;
+        if (strike || spare){
+            IEssai essai = new Essai();
+            nombre_quilles_sup = essai.jouerEssai(this);
+            if (nombre_quilles_sup != 10 && strike) {
+                nombre_quilles_sup += essai.jouerEssai(this);
+                if (nombre_quilles_sup == 10) {
+                    spareTourSuplementaire = true;
+                }
+            } else
+                strikeTourSuplementaire = true;
+        }
+        return nombre_quilles_sup;
     }
 
 }

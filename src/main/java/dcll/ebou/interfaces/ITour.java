@@ -41,4 +41,6 @@ public interface ITour {
      */
     public boolean isStrike();
 
+    public int getNombre_quilles_tombees();
+
 }
