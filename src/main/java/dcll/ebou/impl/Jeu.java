@@ -45,36 +45,6 @@ public class Jeu implements IJeu {
 
         //Il faudra ici une list de tours par joueur quand la classe tour sera
         //La classe tour devrait contenir le score du joueur pour ce tour là, le num du joueur, si il a fait un spare, si il a fait un strike
-        /*
-        boolean strike;
-        int j;
-        int nbQuillesTombees;
-        for (int i = 0; i < NOMBRE_FRAME * 2; i++){
-
-            System.out.println("C'est au joueur : " + ((i % 2) + 1) + " de jouer.");
-
-            strike = false;
-            j = 0;
-            nbQuillesTombees = 0;
-
-            while (!strike && j < NOMBRE_ESSAI_MAX) {
-                //nbQuillesTombees += tour.lancer ();
-                //Si il a fait tomber toutes les quilles, et que c'est son premier essai
-                if (nbQuillesTombees == NOMBRE_QUILLES && j == 0)
-                    //tour.strike = true;
-                    strike = true;
-
-                //Si il a fait tomber toutes les quilles, et que c'est son deuxième essai
-                else if (nbQuillesTombees == NOMBRE_QUILLES && j == 1);
-                    //tour.spare = true;
-                j++;
-            }
-
-            System.out.println("Il a fait tomber " + nbQuillesTombees + " quilles, en " + j + " coups.");
-
-            //Calcul des scores en parcourant la liste de tours
-        }
-        */
 
         ITour[] toursJ1 = new Tour[10];
         ITour[] toursJ2 = new Tour[10];
@@ -87,15 +57,45 @@ public class Jeu implements IJeu {
         int nQuilles;
         for (int n_frames = 0; n_frames < NOMBRE_FRAME; n_frames++) {
             System.out.println("Tour : " + n_frames);
-
+            /*
             nQuilles = toursJ1[n_frames].jouerTour();
             System.out.println("Le joueur 1 a fait tombé " + nQuilles + " en " + toursJ1[n_frames].getNumeroEssai() + " essais.");
             if (toursJ1[n_frames].isStrike())
                 System.out.println("Le joueur 1 a réalisé un striiiiiiiike");
+            if (toursJ1[n_frames].isSpare())
+                System.out.println("Le joueur 1 a réalisé un spaaaareee");
+            */
             nQuilles = toursJ2[n_frames].jouerTour();
-            System.out.println("Le joueur 2 a fait tombé " + nQuilles + " en " + toursJ2[n_frames].getNumeroEssai() + " essais.");
+            /*System.out.println("Le joueur 2 a fait tombé " + nQuilles + " en " + toursJ2[n_frames].getNumeroEssai() + " essais.");
             if (toursJ2[n_frames].isStrike())
                 System.out.println("Le joueur 2 a réalisé un striiiiiiiike");
+            if (toursJ2[n_frames].isSpare())
+                System.out.println("Le joueur 2 a réalisé un spaaaareee");
+            */
         }
+        //System.out.println("Score du joueur 1 : " + calculScoreTotal(toursJ1));
+        System.out.println("Score du joueur 2 : " + calculScoreTotal(toursJ2));
+    }
+    public int calculScoreTotal (ITour[] tours){
+        int score = 0;
+
+        for (int n_frames = 0; n_frames < NOMBRE_FRAME; n_frames++) {
+            score += tours[n_frames].calculerScoreTour();
+            //Cas d'un spare
+            if (tours[n_frames].isSpare() && n_frames < NOMBRE_FRAME - 1)
+                score += tours[n_frames + 1].calculerScoreTour();
+            //Cas d'un strike
+            if (tours[n_frames].isStrike() && n_frames < NOMBRE_FRAME - 2) {
+                score += tours[n_frames + 1].calculerScoreTour();
+                score += tours[n_frames + 2].calculerScoreTour();
+            }
+            //Cas d'un spare sur le dernier tour
+            if (tours[n_frames].isSpareTourSuplementaire() || tours[n_frames].isStrikeTourSuplementaire())
+                score += 10;
+
+            System.out.println("Score tours  : " + (n_frames + 1) + " " + score);
+
+        }
+        return score;
     }
 }

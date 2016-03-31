@@ -43,4 +43,9 @@ public interface ITour {
 
     public int getNombre_quilles_tombees();
 
+    public int calculerScoreTour ();
+    public boolean isSpareTourSuplementaire() ;
+
+    public boolean isStrikeTourSuplementaire() ;
+
 }

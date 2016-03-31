@@ -58,6 +58,8 @@ public class Tour implements ITour {
     public Tour(Joueur j, int n) {
         joueur=j;
         numero_tour=n;
+        spareTourSuplementaire = false;
+        strikeTourSuplementaire = false;
     }
 
     /**
@@ -106,6 +108,14 @@ public class Tour implements ITour {
         return nombre_quilles_tombees;
     }
 
+    public boolean isSpareTourSuplementaire() {
+        return spareTourSuplementaire;
+    }
+
+    public boolean isStrikeTourSuplementaire() {
+        return strikeTourSuplementaire;
+    }
+
     /**
      * Jouer 1 tour donc 1 ou 2 essais on 30/03/2016
      * (faire une classe essai)
@@ -114,6 +124,7 @@ public class Tour implements ITour {
      */
     @Override
     public int jouerTour() {
+
         joueur.initialiserNombre_essai();
         /*
         nombre_quilles_tombees = jouerEssai();
@@ -132,6 +143,8 @@ public class Tour implements ITour {
             IEssai essai = new Essai();
             nombre_quilles_tombees += essai.jouerEssai(this);
 
+            System.out.println("nb quilles + essai " + nombre_quilles_tombees + "   " + joueur.getNumero_essai());
+
             //Si il réalise un strike
             if (nombre_quilles_tombees == 10 && joueur.getNumero_essai() == 1) {
                 strike = true;
@@ -140,15 +153,11 @@ public class Tour implements ITour {
             else if (nombre_quilles_tombees == 10 && joueur.getNumero_essai() == 2){
                 spare = true;
             }
-            else
-            {
-                nombre_quilles_tombees += essai.jouerEssai(this);
-            }
 
-            //Si ce n'est pas le dernier tour, il n'a que deux essais possibles
-            if ( joueur.getNumero_essai() == 2 && numero_tour != 9)
+            if ( joueur.getNumero_essai() == 2 )
             {
-                jouerDernierTour();
+                if (numero_tour == 9)
+                    jouerDernierTour();
                 finTour = true;
             }
         }
@@ -156,6 +165,9 @@ public class Tour implements ITour {
     }
 
     private int jouerDernierTour() {
+
+        joueur.initialiserNombre_essai();
+
         int nombre_quilles_sup = 0;
         if (strike || spare){
             IEssai essai = new Essai();
@@ -165,10 +177,18 @@ public class Tour implements ITour {
                 if (nombre_quilles_sup == 10) {
                     spareTourSuplementaire = true;
                 }
-            } else
+            }
+            else if (nombre_quilles_sup == 10 && !strike)
                 strikeTourSuplementaire = true;
         }
+        System.out.println("tour sup " + nombre_quilles_sup);
         return nombre_quilles_sup;
+    }
+
+    public int calculerScoreTour () {
+        if (strike || spare )
+            return 10;
+        return nombre_quilles_tombees;
     }
 
 }

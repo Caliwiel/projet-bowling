@@ -13,11 +13,21 @@ public class Essai implements IEssai {
      * @return le nombre de quilles tombées
      */
     public int jouerEssai(ITour tour) {
+
         tour.getJoueurDuTour().incrementerNombre_essai();
 
-        if (10 - tour.getNombre_quilles_tombees() - tour.getNumeroTour()%5 + 1 >= 0)
-            return tour.getNumeroTour()%5+1;
+        if (tour.getJoueurDuTour().getNumber() == 1) {
+            if (10 - tour.getNombre_quilles_tombees() - tour.getNumeroTour()%5 + 1 >= 0)
+                return tour.getNumeroTour()%5+1;
+            else
+                return 0;
+        }
         else
-            return 0;
+        {
+            if (10 - tour.getNombre_quilles_tombees() - tour.getNumeroTour()%4 + 2 >= 0)
+                return tour.getNumeroTour()%4+2;
+            else
+                return 0;
+        }
     }
 }
